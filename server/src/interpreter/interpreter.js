@@ -1,0 +1,95 @@
+const Entorno = require("./Entorno");
+const {
+  Declaracion,
+  Asignacion,
+  Incremento,
+  Imprimir,
+  Si,
+  Para
+} = require("./Instrucciones");
+
+const {
+  Numero,
+  Cadena,
+  Booleano,
+  Identificador,
+  Suma,
+  Resta,
+  Multiplicacion,
+  Division,
+  Igualdad,
+  Desigualdad
+} = require("./Expresiones");
+
+function convertirNodo(nodo) {
+  if (!nodo || typeof nodo !== "object") return null;
+
+  switch (nodo.tipo) {
+    case "DECLARACION":
+      return new Declaracion(nodo.id, nodo.tipoDato, convertirNodo(nodo.valor));
+    case "ASIGNACION":
+      return new Asignacion(nodo.id, convertirNodo(nodo.valor));
+    case "IMPRIMIR":
+      return new Imprimir(convertirNodo(nodo.valor));
+    case "INCREMENTO":
+      return new Incremento(nodo.id);
+
+    //Convertir expresiones a Nodos
+    case "NUMERO":
+      return new Numero(nodo.valor);
+    case "CADENA":
+      return new Cadena(nodo.valor);
+    case "ID":
+      return new Identificador(nodo.nombre);
+    case "BOOLEANO":
+      return new Booleano(nodo.valor);
+
+    case "IGUALDAD":
+      return new Igualdad(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha));
+    case "DESIGUALDAD":
+      return new Desigualdad(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha));
+
+    // case "OR": --- IGNORE ---
+    //   return new Or(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha)); --- IGNORE ---
+    case "SUMA":
+      return new Suma(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha));
+    case "RESTA":
+      return new Resta(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha));
+    case "MULTIPLICACION":
+      return new Multiplicacion(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha));
+    case "DIVISION":
+      return new Division(convertirNodo(nodo.izquierda), convertirNodo(nodo.derecha));
+    case "SI":
+      return new Si(convertirNodo(nodo.condicion), nodo.sentencias.map(convertirNodo));
+    case "PARA":
+      return new Para(convertirNodo(nodo.inicio), convertirNodo(nodo.condicion), convertirNodo(nodo.actualizacion), nodo.sentencias.map(convertirNodo));
+
+    default:
+      return null;
+  }
+}
+
+function interpretar(nodosAST) {
+  const entorno = new Entorno();
+
+  for (const nodo of nodosAST || []) {
+    const instruccion = convertirNodo(nodo);
+    if (instruccion) {
+      instruccion.interpretar(entorno);
+    } else {
+      entorno.errores.push({ tipo: "Sintáctico", descripcion: "Nodo inválido" });
+    }
+  }
+
+  return {
+    consola: entorno.salida,
+    errores: entorno.errores,
+    simbolos: [...entorno.variables.entries()].map(([id, val]) => ({
+      id,
+      tipo: val.tipo,
+      valor: val.valor
+    }))
+  };
+}
+
+module.exports = interpretar;

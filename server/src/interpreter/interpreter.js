@@ -1,4 +1,4 @@
-const Entorno = require("./Entorno");
+const Entorno = require("./Contexto");
 const {
   Declaracion,
   Asignacion,
@@ -20,6 +20,8 @@ const {
   Igualdad,
   Desigualdad
 } = require("./Expresiones");
+
+const { DefinirProcedimiento, LlamarProcedimiento } = require("./Procedimiento");
 
 function convertirNodo(nodo) {
   if (!nodo || typeof nodo !== "object") return null;
@@ -64,6 +66,11 @@ function convertirNodo(nodo) {
     case "PARA":
       return new Para(convertirNodo(nodo.inicio), convertirNodo(nodo.condicion), convertirNodo(nodo.actualizacion), nodo.sentencias.map(convertirNodo));
 
+
+    case "DEF_PROCEDIMIENTO":
+      return new DefinirProcedimiento(nodo.id, nodo.sentencias.map(convertirNodo), nodo.parametros);
+    case "LLAMAR_PROCEDIMIENTO":
+      return new LlamarProcedimiento(nodo.id, nodo.argumentos.map(convertirNodo));
     default:
       return null;
   }

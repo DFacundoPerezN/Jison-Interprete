@@ -1,3 +1,5 @@
+const Entorno = require("./Contexto");
+
 class Declaracion {
   constructor(id, tipoDato, valor) {
     this.id = id;
@@ -41,7 +43,7 @@ class Imprimir {
 
   interpretar(entorno) {
     const val = this.valor.interpretar(entorno);
-    entorno.salida += (val !== undefined && val !== null ? val : "null") + "\n";
+    entorno.agregarSalida(val);
   }
 }
 
@@ -78,17 +80,19 @@ class Para {
   }
 
   interpretar(entorno) {
-    this.inicio.interpretar(entorno);
+    const nuevoEntorno =  new Entorno();
+    nuevoEntorno.entornoPadre = entorno;
+    this.inicio.interpretar(nuevoEntorno);
     //console.log("Condición PARA:",  this.condicion);
-    var condicionVal = this.condicion.interpretar(entorno);
+    var condicionVal = this.condicion.interpretar(nuevoEntorno);
     //console.log("Valor condición PARA:",  condicionVal);
     while (condicionVal) {
       for (const instr of this.sentencias) {
-        instr.interpretar(entorno);
+        instr.interpretar(nuevoEntorno);
       }
-      this.actualizacion.interpretar(entorno);
-      condicionVal = this.condicion.interpretar(entorno);
-      console.log("Valor condición PARA:",  condicionVal);
+      this.actualizacion.interpretar(nuevoEntorno);
+      condicionVal = this.condicion.interpretar(nuevoEntorno);
+      //console.log("Valor condición PARA:",  condicionVal);
     } 
   }
 }

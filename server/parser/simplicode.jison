@@ -19,6 +19,8 @@
 "para"                        return 'PARA';
 "hasta"                        return 'HASTA';
 "que"                         return 'QUE';
+"procedimiento"               return 'PROCEDIMIENTO';
+"ejecutar"                    return 'EJECUTAR';
 //EXPRESIONES REGULARES
 [0-9]+                        return 'NUMERO';
 \"[^"]*\"                     return 'CADENA';
@@ -59,6 +61,8 @@
 %left '*' '/'
 %left '==' '!='
 %left '||' '&&'
+
+%left ','
 
 %start programa
 %token INGRESAR COMO CONVALOR TIPO_ENTERO TIPO_CADENA ASIGNAR IMPRIMIR ID NUMERO CADENA NEWLINE VERDADERO FALSO
@@ -109,6 +113,12 @@ instruccion
         { $$ = $1; }
     | ciclo
         { $$ = $1; }
+    | procedimiento
+        { $$ = $1; }
+    | EJECUTAR ID '(' ')'
+        { $$ = { tipo: 'LLAMAR_PROCEDIMIENTO', id: $2, argumentos: [] }; }
+    | EJECUTAR ID '(' lista_valores ')'
+        { $$ = { tipo: 'LLAMAR_PROCEDIMIENTO', id: $2, argumentos: $4 }; }
     ;
 
 declaracion 
@@ -116,6 +126,13 @@ declaracion
         { $$ = { tipo: 'DECLARACION', id: $2, tipoDato: $4, valor: $6 }; }
     | tipo ID CONVALOR expresion
         { $$ = { tipo: 'DECLARACION', id: $2, tipoDato: $1, valor: $4 }; }
+    ;
+
+lista_valores 
+    : lista_valores ',' expresion
+        { $$ = $1.concat([$3]); }
+    | expresion
+        { $$ = [$1]; }
     ;
 
 asignacion
@@ -148,6 +165,27 @@ actualizcion
     | ID '-' '-'
         { $$ = { tipo: 'DECREMENTO', id: $1 }; }
     ;
+
+procedimiento 
+    : PROCEDIMIENTO ID '('  ')'  '{' sentencias '}' 
+    {$$ = { tipo: 'DEF_PROCEDIMIENTO', id: $2, sentencias: $6, parametros: [] }; }
+    | PROCEDIMIENTO ID '(' lista_parametros ')'  '{' sentencias '}' 
+    {$$ = { tipo: 'DEF_PROCEDIMIENTO', id: $2, sentencias: $7, parametros: $4 }; }
+;
+
+lista_parametros : 
+    lista_parametros ',' parametro
+    { $$ = $1.concat([$3]); }
+    | parametro
+    { $$ = [$1]; }
+;
+
+parametro
+    : tipo ID
+    { $$ = { tipo: 'PARAMETRO', id: $2, tipoDato: $1 }; }
+    | tipo ID '=' expresion
+    { $$ = { tipo: 'PARAMETRO', id: $2, tipoDato: $1, valor: $4 }; }
+;
 
 expresion
     : expresion '+' expresion

@@ -39,7 +39,8 @@ class LlamarProcedimiento {
                 if (this.argumentos[i]){
                     arg = this.argumentos[i].valor;
                 } else {
-                    arg = param.valor; // Valor por defecto si no se proporciona argumento
+                    
+                    arg = param.valor.valor; // Valor por defecto si no se proporciona argumento
                 }
                 
                 nuevoEntorno.declarar(param.id, param.tipo, arg);

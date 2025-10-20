@@ -1,0 +1,140 @@
+//como sugerencia, no lo corran todo de un solo 
+si ("cuatro4" == "cuatro" + 4 ) {
+	imprimir nl "comparacion de cadenas con numeros ok";
+}
+
+si (5 == 6 - verdadero) {
+	imprimir nl "resta con booleano ok";
+}
+
+
+si (125 >  125 * 0.99 ) {
+	imprimir nl "multriplicacion ok";
+}
+
+
+si (('M' / 11) * 111 == 777 ) {
+	imprimir nl "division, potencia y agrupación ok ";
+}
+
+si (1024 ^ 0.5 == 32 ) {
+	imprimir nl "potencia bien";
+}
+
+si (89 % 88 == 1 || 89 / 88 == 1) {
+	imprimir nl "or y modulo bien";
+}
+	
+si (0 - 1 >= -1) {
+	imprimir nl "supondremos negacion unitaria bien"; 
+}
+
+// declaraciones y operador ternario
+
+booleano ternarioFalse = 1 < 1 ? Verdadero : Falso ;
+
+booleano true = ! ternarioFalse; /* no deberia dar error porque "true" no es parte de este lenguaje*/
+
+si (!!!ternarioFalse && true) {
+	imprimir nl "operadores booleanos bien"; 
+}
+
+decimal precio; 
+precio = (decimal) 16; // Toma el valor 16.0 
+
+caracter inicial;
+inicial = (caracter) 77;
+
+decimal ++; //deberia convertir a 17.0 el decimal
+
+si (precio > 16) {
+	imprimir nl "incremento en casteo correcto";
+}
+
+si ("Mateo" == inicial + "ateo") {
+	imprimir nl "concatenacion con casteo cadena correctos";
+}
+
+//Vectores
+caracter [][] ocultodiagonal = vector [5][5];
+ocultodiagonal = [ ['B', 'a', 'b', 'y', 's'], ['s', 'i', 'l', 'K', 's'], ['o', 'n', 'l', '2', '3'], ['8', '4', '2', 'l', '0'] , ['g', 'a', 'a', 'b', 'y'] ];
+
+imprimir ocultodiagonal[0][0]  + ocultodiagonal[1][1] + ocultodiagonal[2][2] + ocultodiagonal[3][3] + ocultodiagonal[4][4] ++ ocultodiagonal[5][5];
+
+cadena[] personajes = ["mandy", "irwin", "el papa de billy", "la mama de billy", "el primo de billy", "el gato de billy", "dracula", "el general hernecio", "el director buenavibra", "la señorta claus", "el club serpiente secreta", "el ejercito la tropa scout 701", "el marciano", "el presidente", "el cartero", "las hermanas digeshsmith", "coco", "una llama", "un sándwich de pavo con ensalada"];
+
+//ciclo para
+para (entero i con valor 0; i > 17; i++){
+	imprimir  ", " + personajes[i];
+}
+
+imprimir "y " + personajes[i] ;
+
+
+//detener y continuar
+hacer {
+	detener;
+	imprimir nl "no debería imprimirse este mensaje";
+} hasta que (1 > 0)
+
+entero monster;
+para ( monster = 7; monster > 0; monster-- ) {
+	si monster == 5 {
+		imprimir "Se salta el No." + monster  ;
+		continuar;
+	}
+	imprimir nl i ;
+}
+
+//procedimiento
+procedimiento saludoNombre (cadena nombre = "Amix" ){
+	imprimir nl "Hola, " + nombre ;
+}
+
+//funcion
+funcion entero conocido(numero){
+	si(numero <= 1){
+		retornar 1;
+	}
+	retornar conocido(numero-1) + conocido(numero-2); 
+}
+
+ejecutar saludoNombre();
+imprimir ejecutar numero(5);  //conocido(4) + conocido(3) = conocido(3) + conocido(2) + conocido(2) + conocido(1) = conocido(2) + conocido(1) + conocido(1) + conocido(0) + conocido(1) + conocido(0)  + conocido(1) 
+
+imprimir " \"este mensaje va entre commillas\" ";
+
+// Objetos
+objeto Carta (
+    nombre Cadena
+    palo Cadena
+    mayor Booleano
+    numero Entero
+    figura Booleano
+)
+
+ingresar objeto Carta torre -> Carta (
+    "La Torre",
+    "",
+    verdadero,
+    16,
+	falso
+)
+
+imprimir  "Carta ingresada: " + torre.nombre;
+imprimir nl "; con numero: " + torre.numero;
+
+Carta con metodo describir() {
+	imprimir nl "La carta: " + nombre;
+	si (mayor) {
+		imprimir " Es carta mayor" ;
+	de lo contrario
+		imprimir " Es del palo: " + palo;
+	}
+	si figura {
+		imprimir " y tiene una cara representandola";
+	}
+	imprimir nl ".";
+}
+
+ejecutar torre.describir()

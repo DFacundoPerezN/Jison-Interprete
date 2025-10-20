@@ -92,7 +92,7 @@ procedimiento saludoNombre (cadena nombre = "Amix" ){
 }
 
 //funcion
-funcion entero conocido(numero){
+funcion entero conocido(entero numero){
 	si(numero <= 1){
 		retornar 1;
 	}
@@ -100,7 +100,7 @@ funcion entero conocido(numero){
 }
 
 ejecutar saludoNombre();
-imprimir ejecutar numero(5);  //conocido(4) + conocido(3) = conocido(3) + conocido(2) + conocido(2) + conocido(1) = conocido(2) + conocido(1) + conocido(1) + conocido(0) + conocido(1) + conocido(0)  + conocido(1) 
+imprimir ejecutar conocido(5);  //conocido(4) + conocido(3) = conocido(3) + conocido(2) + conocido(2) + conocido(1) = conocido(2) + conocido(1) + conocido(1) + conocido(0) + conocido(1) + conocido(0)  + conocido(1) 
 
 imprimir " \"este mensaje va entre commillas\" ";
 

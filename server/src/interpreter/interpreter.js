@@ -8,6 +8,8 @@ const {
   Para
 } = require("./Instrucciones");
 
+const { DECLARACION_VECTOR1, ACCESO_VECTOR } = require("./Vectores");
+
 const {
   Numero,
   Cadena,
@@ -22,6 +24,8 @@ const {
 } = require("./Expresiones");
 
 const { DefinirProcedimiento, LlamarProcedimiento } = require("./Procedimiento");
+
+const { DefinirObjeto, IngresarObjeto } = require("./Objetos");
 
 function convertirNodo(nodo) {
   if (!nodo || typeof nodo !== "object") return null;
@@ -71,6 +75,16 @@ function convertirNodo(nodo) {
       return new DefinirProcedimiento(nodo.id, nodo.sentencias.map(convertirNodo), nodo.parametros);
     case "LLAMAR_PROCEDIMIENTO":
       return new LlamarProcedimiento(nodo.id, nodo.argumentos.map(convertirNodo));
+
+    case "DECLARACION_VECTOR1":
+      return new DECLARACION_VECTOR1(nodo.id, nodo.tipoDato, nodo.dim, nodo.tam);
+    case "ACCESO_VECTOR":
+      return new ACCESO_VECTOR(nodo.id, convertirNodo(nodo.indice), nodo.indice2 ? convertirNodo(nodo.indice2) : null);
+
+    case "DEF_OBJETO":
+      return new DefinirObjeto(nodo.id, nodo.atributos);
+    case "INGRESAR_OBJETO":
+      return new IngresarObjeto(nodo.id, nodo.objetoTipo, nodo.atributos.map(convertirNodo));
     default:
       return null;
   }

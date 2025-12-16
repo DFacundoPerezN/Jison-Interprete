@@ -56,7 +56,7 @@ si ("Mateo" == inicial + "ateo") {
 }
 
 //Vectores
-caracter [][] ocultodiagonal = vector entero [5][5];
+caracter [][] ocultodiagonal = vector caracter [5][5];
 ocultodiagonal = [ ['B', 'a', 'b', 'y', 's'], ['s', 'i', 'l', 'K', 's'], ['o', 'n', 'l', '2', '3'], ['8', '4', '2', 'l', '0'] , ['g', 'a', 'a', 'b', 'y'] ];
 
 imprimir ocultodiagonal[0][0]  + ocultodiagonal[1][1] + ocultodiagonal[2][2] + ocultodiagonal[3][3] + ocultodiagonal[4][4] ++ ocultodiagonal[5][5];

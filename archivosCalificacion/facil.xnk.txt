@@ -1,0 +1,82 @@
+	// == ARCHIVO FÁCIL ==
+// Comentarios de una línea
+
+/*
+ Comentarios multilínea
+ Demostración de tipos, asignaciones y operadores
+*/
+
+entero a con valor 10;
+decimal b con valor 2.5;
+booleano ok con valor Verdadero;
+caracter letra con valor 'Z';
+cadena saludo con valor "Hola";
+
+imprimir nl "=== Declaraciones y Asignaciones ===";
+imprimir nl "a = " + (cadena) a;
+imprimir nl "b = " + (cadena) b;
+imprimir nl "ok = 1 si Verdadero, 0 si Falso ";
+imprimir nl "letra = " + letra;
+imprimir nl "saludo = " + saludo;
+
+// reasignaciones
+a = a + 5;         // 15
+b = b * 2;         // 5.0
+letra = 'A';
+saludo = saludo + " mundo"; // concatenación
+
+imprimir nl "a (actualizado) = " + (cadena) a;
+imprimir nl "b (actualizado) = " + (cadena) b;
+imprimir nl "letra (actualizado) = " + letra;
+imprimir nl "saludo (actualizado) = " + saludo;
+
+// ========= Secuencias de escape en cadenas =========
+imprimir nl "Linea1\nLinea2\t(con tab)\nComillas: \" y backslash: \\";
+
+//  Aritméticos 
+imprimir nl "=== Aritméticos ===";
+entero s con valor 7 + 3;
+entero r con valor 7 - 3;
+entero m con valor 7 * 3;
+decimal d con valor 7 / 3;     // decimal
+entero mod con valor 7 % 3;
+decimal p con valor 2 ^ 3;     // potencia
+
+imprimir nl "7+3 = " + (cadena) s;
+imprimir nl "7-3 = " + (cadena) r;
+imprimir nl "7*3 = " + (cadena) m;
+imprimir nl "7/3 = " + (cadena) d;
+imprimir nl "7%3 = " + (cadena) mod;
+imprimir nl "2^3 = " + (cadena) p;
+
+//  Relacionales 
+imprimir nl "=== Relacionales (como booleanos) ===";
+booleano c1 con valor 5 == 5;      // Verdadero
+booleano c2 con valor 7 != 3;      // Verdadero
+booleano c3 con valor 4 < 9;       // Verdadero
+booleano c4 con valor 4 >= 4;      // Verdadero
+booleano c5 con valor 2 > 10;      // Falso
+
+// Para imprimir booleanos como 1/0, asignamos a un entero auxiliar
+entero b1 con valor c1;
+entero b2 con valor c2;
+entero b3 con valor c3;
+entero b4 con valor c4;
+entero b5 con valor c5;
+
+imprimir nl "5==5 -> " + (cadena) b1;
+imprimir nl "7!=3 -> " + (cadena) b2;
+imprimir nl "4<9 -> " + (cadena) b3;
+imprimir nl "4>=4 -> " + (cadena) b4;
+imprimir nl "2>10 -> " + (cadena) b5;
+
+//  Lógicos 
+imprimir nl "=== Lógicos ===";
+booleano l1 con valor (Verdadero && Falso) || !Falso; // Verdadero
+booleano l2 con valor Falso || Falso;                  // Falso
+entero l1n con valor l1; // 1
+entero l2n con valor l2; // 0
+imprimir nl "l1 -> " + (cadena) l1n;
+imprimir nl "l2 -> " + (cadena) l2n;
+
+imprimir nl "=== FIN ARCHIVO FÁCIL ===";

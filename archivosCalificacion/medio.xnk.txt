@@ -1,0 +1,70 @@
+imprimir nl "=== ARCHIVO MEDIO ===";
+
+// ---------- Ternario + Si / O si / De lo contrario ----------
+entero edad con valor 18;
+booleano mayor con valor edad >= 18 ? Verdadero : Falso;
+
+si (mayor) {
+    imprimir nl "Eres mayor de edad";
+} o si (edad == 17) {
+    imprimir nl "Casi mayor";
+} de lo contrario {
+    imprimir nl "Menor de edad";
+}
+
+// ------------------- Procedimientos -------------------
+procedimiento encabezado (cadena titulo = "SECCIÓN") {
+    imprimir nl "---- " + titulo + " ----";
+}
+
+procedimiento contar (entero inicio, entero fin = 5) {
+    ejecutar encabezado("CONTAR");
+    para (entero i con valor inicio; i < fin; i = i + 1) {
+        si (i == 3) {
+            imprimir nl "i=3 -> continuar";
+            continuar;
+        }
+        imprimir nl "i = " + (cadena) i;
+        si (i == 4) {
+            imprimir nl "i=4 -> detener";
+            detener;
+        }
+    }
+}
+
+procedimiento bucles () {
+    ejecutar encabezado("BUCLES");
+
+    // mientras
+    entero x con valor 0;
+    mientras (x < 3) {
+        imprimir nl "[mientras] x = " + (cadena) x;
+        x = x + 1;
+    }
+
+    // hacer-hasta
+    entero y con valor 0;
+    hacer {
+        imprimir nl "[hacer-hasta] y = " + (cadena) y;
+        y = y + 1;
+    } hasta que (y >= 2);
+}
+
+// ---------------- lower/upper ----------------
+procedimiento min_mayus () {
+    ejecutar encabezado("MIN-MAYUS");
+    cadena x con valor "HoLa CoMpI";
+    imprimir nl "tolower(x) = " + tolower x;
+    imprimir nl "toupper(x) = " + toupper x;
+}
+
+// ------------------------ MAIN -------------------------
+procedimiento main () {
+    ejecutar encabezado("INICIO MEDIO");
+    ejecutar contar(1, 6);
+    ejecutar bucles();
+    ejecutar min_mayus();
+    imprimir nl "=== FIN ARCHIVO MEDIO ===";
+}
+
+ejecutar main();
